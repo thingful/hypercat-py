@@ -22,13 +22,13 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.1.0a1',
+    version='0.1.0b1',
 
     description='Library for working with Hypercat catalogues',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/thingful/hypercatpy',
+    url='https://github.com/thingful/hypercat-py',
 
     # Author details
     author='Pilgrim Beart',

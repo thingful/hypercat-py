@@ -13,7 +13,7 @@ clean:
 	python setup.py clean
 	rm -rf dist/*
 
-publish:
+publish: build_dist
 	twine upload dist/*
 
 default: test

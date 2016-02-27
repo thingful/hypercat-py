@@ -1,7 +1,8 @@
 Hypercat.py
 ===========
 
-A minimal library for working with Hypercat 3.0 catalogues.
+A minimal library for working with Hypercat 3.0 catalogues. For full details on
+Hypercat please see: http://www.hypercat.io/standard.html
 
 Use cases
 ---------

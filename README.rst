@@ -4,6 +4,12 @@ Hypercat.py
 A minimal library for working with Hypercat 3.0 catalogues. For full details on
 Hypercat please see: http://www.hypercat.io/standard.html
 
+Origin
+------
+
+This module is a simple repackaging of a Hypercat module original available
+here: https://github.com/hypercatIoT/python-tools
+
 Use cases
 ---------
 

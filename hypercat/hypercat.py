@@ -23,6 +23,11 @@
 
 import json
 
+try:
+    basestring
+except NameError:
+    basestring = str
+
 REL = "rel"
 VAL = "val"
 

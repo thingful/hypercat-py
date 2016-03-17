@@ -142,6 +142,11 @@ License
 The software is released under an MIT license. Please see the details in
 LICENSE.txt.
 
+Build Status
+============
+
+[![wercker status](https://app.wercker.com/status/9514dce1bf9b140bf5bac6c46d2a2704/s/master "wercker status")](https://app.wercker.com/project/bykey/9514dce1bf9b140bf5bac6c46d2a2704)
+
 TODO
 ====
 

@@ -1,0 +1,10 @@
+box: python
+
+build:
+    steps:
+        - virtualenv
+
+        - script:
+            name: test
+            code: |
+              python setup.py test

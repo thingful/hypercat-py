@@ -28,7 +28,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from hypercat import hypercat
 
-def test_catalogue():
+def test_empty_catalogue():
     print("Running unit tests")
 
     print("\nTEST: Create minimal empty Catalogue, and render to a string, minimally, then with pretty-printing")
@@ -36,7 +36,6 @@ def test_catalogue():
 
     s = h.asJSONstr()
     print(s)
-    # assert s=="""{"catalogue-metadata":[{"rel":"urn:X-hypercat:rels:isContentType","val":"application/vnd.hypercat.catalogue+json"},{"rel":"urn:X-hypercat:rels:hasDescription:en","val":""}],"items":[]}"""
     assert_equal(s, """{"catalogue-metadata":[{"rel":"urn:X-hypercat:rels:isContentType","val":"application/vnd.hypercat.catalogue+json"},{"rel":"urn:X-hypercat:rels:hasDescription:en","val":""}],"items":[]}""")
 
     result = h.prettyprint()
@@ -55,6 +54,7 @@ def test_catalogue():
     "items": []
 }""")
 
+def test_minimal_catalogue():
     print("\nTEST: Create a catalogue containing 1 catalogue and 1 resource, held as data")
     h = hypercat.Hypercat("CatalogueContainingOneCatalogueAndOneResource")
     h2 = hypercat.Hypercat("ChildCatalogue")
@@ -66,8 +66,9 @@ def test_catalogue():
     result = h.asJSON()
     print(result)
     print(h.prettyprint())
-    assert result=={'items': [{'item-metadata': [{'val': 'application/vnd.hypercat.catalogue+json', 'rel': 'urn:X-hypercat:rels:isContentType'}, {'val': 'ChildCatalogue', 'rel': 'urn:X-hypercat:rels:hasDescription:en'}], 'href': 'http://FIXMEcat'}, {'item-metadata': [{'val': 'application/vnd.hypercat.sensordata+json', 'rel': 'urn:X-hypercat:rels:isContentType'}, {'val': 'resource1', 'rel': 'urn:X-hypercat:rels:hasDescription:en'}], 'href': 'http://FIXMEresource'}], 'catalogue-metadata': [{'val': 'application/vnd.hypercat.catalogue+json', 'rel': 'urn:X-hypercat:rels:isContentType'}, {'val': 'CatalogueContainingOneCatalogueAndOneResource', 'rel': 'urn:X-hypercat:rels:hasDescription:en'}]}
+    assert_equal(result, {'items': [{'item-metadata': [{'val': 'application/vnd.hypercat.catalogue+json', 'rel': 'urn:X-hypercat:rels:isContentType'}, {'val': 'ChildCatalogue', 'rel': 'urn:X-hypercat:rels:hasDescription:en'}], 'href': 'http://FIXMEcat'}, {'item-metadata': [{'val': 'application/vnd.hypercat.sensordata+json', 'rel': 'urn:X-hypercat:rels:isContentType'}, {'val': 'resource1', 'rel': 'urn:X-hypercat:rels:hasDescription:en'}], 'href': 'http://FIXMEresource'}], 'catalogue-metadata': [{'val': 'application/vnd.hypercat.catalogue+json', 'rel': 'urn:X-hypercat:rels:isContentType'}, {'val': 'CatalogueContainingOneCatalogueAndOneResource', 'rel': 'urn:X-hypercat:rels:hasDescription:en'}]})
 
+def test_two_deep_catalogue():
     print("\nTEST: Create a catalogue 2 deep (and output each level)")
     h1 = hypercat.Hypercat("Top")
     h2 = hypercat.Hypercat("Middle")
@@ -84,6 +85,7 @@ def test_catalogue():
     print(h3.asJSON())
     print(h3.prettyprint())
 
+def test_deeper_catalogue():
     print("\nTEST: Creating more than 2 levels of catalogue, then outputting different levels")
     h1 = hypercat.Hypercat("Top")
     h1.addRelation("name","top")
@@ -97,18 +99,20 @@ def test_catalogue():
     print("Find top catalogue:")
     hN = h1.findByPath("name", "/")
     print(hN.prettyprint())
-    assert hN.values("name")[0] == "top"
+    assert_equal(hN.values("name")[0], "top")
 
     print("Find middle catalogue:")
     hN = h1.findByPath("name", "/middle/")
     print(hN.prettyprint())
-    assert hN.values("name")[0] == "middle"
+    assert_equal(hN.values("name")[0], "middle")
 
     print("Find bottom catalogue:")
     hN = h1.findByPath("name", "/middle/bottom")
     print(hN.prettyprint())
-    assert hN.values("name")[0] == "bottom"
+    assert_equal(hN.values("name")[0], "bottom")
 
+
+def test_fancy_catalogue():
     print("\nTEST: Create a fancy Catalogue with optional metadata")
     h2 = hypercat.Hypercat("Fancy Catalogue")
     h2.supportsSimpleSearch()
@@ -116,7 +120,7 @@ def test_catalogue():
     h2.containsContentType("application/vnd.hypercat.FIXME+json")
     result = h2.prettyprint()
     print(result)
-    assert result=="""{
+    assert_equal(result, """{
     "catalogue-metadata": [
         {
             "rel": "urn:X-hypercat:rels:isContentType",
@@ -140,14 +144,15 @@ def test_catalogue():
         }
     ],
     "items": []
-}"""
+}""")
 
+def test_multiple_rels():
     print("\nTEST: Add multiple RELS to a catalogue")
     h = hypercat.Hypercat("cat")
-    assert h.values("relation") == []
+    assert_equal(h.values("relation"), [])
     h.addRelation("relation","value1")
     h.addRelation("relation","value2")
-    assert h.values("relation") == ["value1","value2"]
+    assert_equal(h.values("relation"), ["value1","value2"])
     print(h.prettyprint())
 
     print("\nTEST: Load a catalogue from a string")
@@ -206,10 +211,7 @@ def test_catalogue():
 }"""
     h = hypercat.loads(inString)
     outString = h.prettyprint()
-    assert inString == outString
+    assert_equal(inString, outString)
     print(inString)
 
     print("\nUnit tests all passed OK")
-
-if __name__ == "__main__":
-    test_catalogue()

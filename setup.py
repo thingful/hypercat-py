@@ -22,7 +22,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.1.1',
+    version='0.1.2',
 
     description='Module for working with Hypercat catalogues',
     long_description=long_description,
@@ -35,6 +35,10 @@ setup(
     author_email='firstname.lastname@1248.io',
 
     license='MIT',
+
+    tests_require=['nose'],
+
+    test_suite='nose.collector',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
